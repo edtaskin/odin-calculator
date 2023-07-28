@@ -3,6 +3,9 @@ function add(a, b) {
     return a + b;
 }
 */
+
+// Math operations
+
 function sum(...args) {
     let sum = 0;
     args.forEach(num => sum += num);
@@ -23,19 +26,25 @@ function operate(op, ...args) {
     return op(...args);
 }
 
-const numberButtons = document.querySelector(".calculator .num-buttons");
+
+
+const screen = document.querySelector(".screen");
+const numButtons = document.querySelector(".calculator .num-buttons");
+//const numButtonsMap = {};
 [7, 8, 9, 4, 5, 6, 1, 2, 3, 0, "."].forEach(num => {
     const button = document.createElement("button");
     button.classList.add("bt", "num");
     button.textContent = num;
-    numberButtons.appendChild(button);
+    numButtons.appendChild(button);
+    //numButtonsMap[button] = num;
+    button.addEventListener("click", sendToScreen);
 });
 
-// TODO Will it be necessary?
-// function assertNumberInput(...args) {
-//     args.forEach(x => {
-//         if (typeof x !== "number")
-//             return false;
-//     });
-//     return true;
-// }
+const operationButtons = document.querySelector(".calculator .operation-buttons");
+console.log(operationButtons.childNodes);
+Array.from(operationButtons.childNodes).forEach(button => button.addEventListener("click", sendToScreen));
+
+
+function sendToScreen(e) {
+    screen.textContent += "" + e.target.textContent;
+}
