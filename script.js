@@ -19,6 +19,12 @@ function divide(a, b) {
     return a / b; //TODO Test
 }
 
+function operate(op, ...args) {
+    return op(...args);
+}
+
+
+
 // TODO Will it be necessary?
 // function assertNumberInput(...args) {
 //     args.forEach(x => {
