@@ -92,22 +92,19 @@ function calculateResult() {
 function parseOperation(str) {
     let i;
     let op;
-    console.log(str, str.length);
     for (i = 0; i < str.length; i++) {
         if (isNaN(str[i]) && operations.includes(str[i])) {
-            console.log(i, str[i]);
             op = operationMap.get(str[i]);
-            console.log(op);
             break;
         }
     }
     let j = str.length;
-    if (isNaN(str[j]) && operations.includes(str[j]))
+    if (isNaN(str[j - 1]) && operations.includes(str[j - 1])) {
         j--;
-    console.log("i: " + i);
-    console.log("j: " + j);
+    }
     const operandA = +str.slice(0, i);
     const operandB = +str.slice(i + 1, j);
-    console.log(operandA, operandB);
-    return op(operandA, operandB);
+    const result = op(operandA, operandB);
+    inputLine.textContent = j === str.length - 1 ? result + str[j] : result;
+    return result;
 }
