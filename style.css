@@ -23,6 +23,7 @@ body {
 .screen {
     width: 400px;
     height: 200px;
+    padding: 10px;
     background-color: #DAA520;
 }
 
@@ -72,6 +73,22 @@ body {
 button.num {
     width: 80px;
     height: 80px;
+}
+
+button.num#equals {
+    background-color: #F0E68C;
+}
+
+button.op {
+    background-color: #FAFAD2;
+}
+
+button.utility#clear {
+    background-color: #CD5C5C;
+}
+
+button.utility#del {
+    background-color: #808080;
 }
 
 .operation-buttons {
