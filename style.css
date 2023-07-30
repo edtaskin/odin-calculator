@@ -1,34 +1,23 @@
 body {
     display: flex;
     justify-content: center;
+    background-color: #DCDCDC;
 }
 
 .calculator {
+    margin-top: 100px;
     width: 500px;
     border: 3px solid black;
     border-radius: 5px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 30px 10px;
+    padding: 30px 0;
     gap: 50px;
     background-color: #2F4F4F;
     font-size: 50px;
     text-align: center;
     text-align: right;
-}
-
-.bt {
-    flex-grow: 0;
-    width: 50px;
-    height: 50px;
-    border: 1px solid black;
-    border-radius: 10px;
-    font-size: 25px;
-}
-
-.bt:hover {
-    background-color: orange;
 }
 
 .screen {
@@ -47,7 +36,32 @@ body {
 
 .operation-container {
     display: flex;
+    flex-direction: column;
+    gap: 30px;
 }
+
+.clear-and-del.container {
+    display: flex;
+    justify-content: space-around;
+}
+
+.num-and-operations.container {
+    display: flex;
+}
+
+.bt {
+    flex-grow: 0;
+    width: 80px;
+    height: 80px;
+    border: 1px solid black;
+    border-radius: 10px;
+    font-size: 25px;
+}
+
+.bt:hover {
+    background-color: orange;
+}
+
 
 .num-buttons {
     display: flex;
@@ -64,5 +78,9 @@ button.num {
 .operation-buttons {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 10px;
+}
+
+.bt.utility {
+    width: 120px;
 }

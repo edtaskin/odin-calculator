@@ -42,19 +42,19 @@ function operate(op, ...args) {
 const screen = document.querySelector(".screen");
 const numButtons = document.querySelector(".calculator .num-buttons");
 
-[7, 8, 9, 4, 5, 6, 1, 2, 3, 0, "."].forEach(num => {
-    const button = document.createElement("button");
-    button.classList.add("bt", "num");
-    button.textContent = num;
-    numButtons.appendChild(button);
-    button.addEventListener("click", sendToScreen);
-});
-
 const addButton = document.querySelector(".bt#add");
 const subButton = document.querySelector(".bt#subtract");
 const multiplyButton = document.querySelector(".bt#multiply");
 const divideButton = document.querySelector(".bt#divide");
 const equalsButton = document.querySelector(".bt#equals");
+
+[7, 8, 9, 4, 5, 6, 1, 2, 3, 0, "."].forEach(num => {
+    const button = document.createElement("button");
+    button.classList.add("bt", "num");
+    button.textContent = num;
+    numButtons.insertBefore(button, equalsButton);
+    button.addEventListener("click", sendToScreen);
+});
 
 const operationButtonsArr = [addButton, subButton, multiplyButton, divideButton];
 let numOfOperationsEntered = 0;
