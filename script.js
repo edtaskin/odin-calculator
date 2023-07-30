@@ -92,6 +92,11 @@ clearButton.addEventListener("click", () => {
     numOfOperationsEntered = 0;
 });
 
+const delButton = document.querySelector(".bt.utility#del");
+delButton.addEventListener("click", () => {
+    if (resultLine.textContent.length > 1)
+        resultLine.textContent = resultLine.textContent.slice(0, -1);
+});
 
 /*
     Only works for 2 operands since this is a toy project.
