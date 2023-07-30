@@ -37,6 +37,14 @@ body {
     background-color: #DAA520;
 }
 
+.input-line {
+    font-size: 40px;
+}
+
+.result-line {
+    font-size: 80px;
+}
+
 .operation-container {
     display: flex;
 }

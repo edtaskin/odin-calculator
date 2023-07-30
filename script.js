@@ -1,18 +1,12 @@
 "use strict";
 
-/*
-function add(a, b) {
-    return a + b;
-}
-*/
-
 // Math operations
 const ADD = "+";
 const SUB = "-";
 const MUL = "x";
 const DIV = "÷";
 
-const operationsByPrecedence = [MUL, DIV, ADD, SUB];
+const operations = [MUL, DIV, ADD, SUB];
 
 const operationMap = new Map();
 operationMap.set(ADD, sum);
@@ -45,7 +39,6 @@ function operate(op, ...args) {
 }
 
 
-
 const screen = document.querySelector(".screen");
 const numButtons = document.querySelector(".calculator .num-buttons");
 
@@ -64,84 +57,57 @@ const divideButton = document.querySelector(".bt#divide");
 const equalsButton = document.querySelector(".bt#equals");
 
 const operationButtonsArr = [addButton, subButton, multiplyButton, divideButton];
+let numOfOperationsEntered = 0;
 operationButtonsArr.forEach(button => {
-    button.addEventListener("click", sendToScreen);
+    button.addEventListener("click", (e) => {
+        sendToScreen(e);
+        if (++numOfOperationsEntered > 1) {
+            calculateResult();
+            numOfOperationsEntered = 0;
+        }
+    });
 });
 
-equalsButton.addEventListener("click", () => {
-    if (!assertValidOperation(screen.textContent))
-        sendToScreen("INVALID OPERATION");
-    else {
-        const result = parseOperation(screen.textContent);
-        writeResult(result);
-    } 
-});
+equalsButton.addEventListener("click", calculateResult);
 
+const inputLine = document.querySelector(".input-line");
 function sendToScreen(e) {
-    screen.textContent += e.target.textContent;
+    inputLine.textContent += e.target.textContent;
 }
 
+const resultLine = document.querySelector(".result-line");
 function writeResult(str) {
-    // TODO Write in a new line and in bigger font
-    screen.textContent += "=" + str;
+    resultLine.textContent = "=" + str;
 }
 
-function assertValidOperation(str) {
-    //TODO
-    let isValid = true;
-
-    return isValid;
+function calculateResult() {
+    const result = parseOperation(inputLine.textContent);
+    writeResult(result);
 }
+
 
 /*
-    Split the string representing the math expression iteratively for each math operation, for which we replace the operation with its result.
-    Inefficient for repeated operations of same type, but will not be fixed, since this a toy project.
+    Only works for 2 operands since this is a toy project.
 */
 function parseOperation(str) {
-    for (let op of operationsByPrecedence) {
-        console.log(`Looking for ${op} in ${str}`);
-        while (str.includes(op)) { // TODO Infinite loop
-            const opIndex = str.indexOf(op);
-            let splitted = [str.slice(0, opIndex), str.slice(opIndex + 1)];
-            console.log("----------");
-            console.log(splitted);
-            let operandA = +getSliceUntilSign(splitted[0], false);
-            console.log("a: " + operandA);
-            let operandB = +getSliceUntilSign(splitted[1], true);
-            console.log("b: " + operandB);
-    
-            const subResult = operationMap.get(op)(operandA, operandB);
-            console.log("subresult: " + subResult);
-    
-            splitted.splice(opIndex-1, 2, getSliceUntilSign(splitted[0], true, true) + subResult + getSliceUntilSign(splitted[1], false, true));
-            console.log(splitted);
-            str = splitted.join("");
+    let i;
+    let op;
+    console.log(str, str.length);
+    for (i = 0; i < str.length; i++) {
+        if (isNaN(str[i]) && operations.includes(str[i])) {
+            console.log(i, str[i]);
+            op = operationMap.get(str[i]);
+            console.log(op);
+            break;
         }
     }
-    return str;
-}
-
-const getSliceUntilSign = (str, fromLeft, includeSign=false) => {
-    let slicedStr = "";
-    if (fromLeft) {
-        let i = 0;
-        while (!operationsByPrecedence.includes(str.charAt(i))) {
-            if (i > str.length) break;
-            slicedStr += str.charAt(i++);
-        }
-        if (includeSign)
-            slicedStr += str.charAt(i);
-    }
-    else {
-        let i = str.length - 1;
-        while (!operationsByPrecedence.includes(str.charAt(i))) {
-            if (i < 0) break;
-            slicedStr = str.charAt(i--) + slicedStr;
-        }
-        if (includeSign)
-            slicedStr = str.charAt(i) + slicedStr;
-    }
-
-    console.log(`Sliced ${slicedStr} from ${str}`);
-    return slicedStr;
+    let j = str.length;
+    if (isNaN(str[j]) && operations.includes(str[j]))
+        j--;
+    console.log("i: " + i);
+    console.log("j: " + j);
+    const operandA = +str.slice(0, i);
+    const operandB = +str.slice(i + 1, j);
+    console.log(operandA, operandB);
+    return op(operandA, operandB);
 }
