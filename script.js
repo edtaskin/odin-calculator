@@ -85,6 +85,13 @@ function calculateResult() {
     writeResult(result);
 }
 
+const clearButton = document.querySelector(".bt.utility#clear");
+clearButton.addEventListener("click", () => {
+    inputLine.textContent = "";
+    resultLine.textContent = "";
+    numOfOperationsEntered = 0;
+});
+
 
 /*
     Only works for 2 operands since this is a toy project.
