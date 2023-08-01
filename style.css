@@ -21,6 +21,7 @@ body {
 }
 
 .screen {
+    font-family: 'Handjet', cursive;
     width: 400px;
     height: 200px;
     padding: 10px;
