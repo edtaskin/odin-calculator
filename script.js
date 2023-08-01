@@ -122,6 +122,6 @@ function parseOperation(str) {
     const operandA = +str.slice(0, i);
     const operandB = +str.slice(i + 1, j);
     const result = op(operandA, operandB);
-    //inputLine.textContent = j === str.length - 1 ? result + str[j] : result;
+    inputLine.textContent = j === str.length - 1 ? result + str[j] : inputLine.textContent;
     return result;
 }
