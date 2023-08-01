@@ -72,6 +72,9 @@ equalsButton.addEventListener("click", calculateResult);
 
 const inputLine = document.querySelector(".input-line");
 function sendToScreen(e) {
+    if (resultLine.textContent !== "" && numOfOperationsEntered > 0) {
+        clearScreen();
+    }
     inputLine.textContent += e.target.textContent;
 }
 
@@ -86,11 +89,13 @@ function calculateResult() {
 }
 
 const clearButton = document.querySelector(".bt.utility#clear");
-clearButton.addEventListener("click", () => {
+clearButton.addEventListener("click", clearScreen);
+
+function clearScreen() {
     inputLine.textContent = "";
     resultLine.textContent = "";
     numOfOperationsEntered = 0;
-});
+}
 
 const delButton = document.querySelector(".bt.utility#del");
 delButton.addEventListener("click", () => {
@@ -117,6 +122,6 @@ function parseOperation(str) {
     const operandA = +str.slice(0, i);
     const operandB = +str.slice(i + 1, j);
     const result = op(operandA, operandB);
-    inputLine.textContent = j === str.length - 1 ? result + str[j] : result;
+    //inputLine.textContent = j === str.length - 1 ? result + str[j] : result;
     return result;
 }
